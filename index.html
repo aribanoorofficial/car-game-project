@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>2D Car Racing Game</title>
+    <!-- Linked Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="appContainer">
+        <div id="gameWindow">
+            <div id="environment">
+                <div class="grass left-grass" id="grassLeft"></div>
+                <div id="mainRoad">
+                    <div class="lane-line lane-left"></div>
+                    <div class="lane-line lane-right"></div>
+
+                    <!-- Player strictly bounded inside mainRoad at the bottom -->
+                    <div id="playerCar" class="car player-car">
+                        <div class="car-body">
+                            <div class="headlights"></div>
+                            <div class="windshield"></div>
+                            <div class="roof"></div>
+                            <div class="rear-window"></div>
+                            <div class="taillights"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grass right-grass" id="grassRight"></div>
+            </div>
+
+            <!-- Overlays -->
+            <div id="scoreBoard" class="glass-panel">Score: <span id="scoreValue">0</span></div>
+            <div id="gameOverUI" class="glass-panel">
+                <h2>Crash!</h2>
+                <div>Final Score: <span id="finalScoreValue">0</span></div>
+                <button id="restartBtn">Play Again</button>
+            </div>
+        </div>
+
+        <!-- Game Controls -->
+        <div id="controlsContainer">
+            <button id="btnLeft" class="control-btn side-btn">⬅️</button>
+            <button id="btnRace" class="control-btn race-btn">RACE🏁</button>
+            <button id="btnRight" class="control-btn side-btn">➡️</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>

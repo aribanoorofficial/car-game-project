@@ -1,0 +1,349 @@
+:root {
+    --road-w: 60%;
+    --grass-w: 20%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background: #080808;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+}
+
+#appContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 480px;
+    height: 100svh;
+    max-height: 850px;
+    background: #111;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Top Game Window */
+#gameWindow {
+    flex-grow: 1;
+    position: relative;
+    background: #000;
+    overflow: hidden;
+}
+
+#environment {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.grass {
+    width: var(--grass-w);
+    height: 100%;
+    background-color: #276221;
+    background-image: radial-gradient(#1e4d1a 15%, transparent 16%), radial-gradient(#1e4d1a 15%, transparent 16%);
+    background-size: 60px 60px;
+    background-position: 0 0, 30px 30px;
+}
+
+.left-grass {
+    border-right: 4px solid #fff;
+    box-shadow: inset -10px 0 15px rgba(0, 0, 0, 0.4);
+}
+
+.right-grass {
+    border-left: 4px solid #fff;
+    box-shadow: inset 10px 0 15px rgba(0, 0, 0, 0.4);
+}
+
+#mainRoad {
+    width: var(--road-w);
+    height: 100%;
+    background-color: #3b3b42;
+    position: relative;
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.7);
+}
+
+.lane-line {
+    position: absolute;
+    top: 0;
+    width: 6px;
+    height: 100%;
+    background-image: repeating-linear-gradient(to bottom, transparent 0%, transparent 40px, rgba(255, 255, 255, 0.7) 40px, rgba(255, 255, 255, 0.7) 80px);
+}
+
+.lane-left {
+    left: 33.33%;
+    transform: translateX(-50%);
+}
+
+.lane-right {
+    left: 66.66%;
+    transform: translateX(-50%);
+}
+
+/* Cars */
+.car {
+    position: absolute;
+    width: 44px;
+    /* Fixed width */
+    height: 80px;
+    /* Fixed height */
+    border-radius: 12px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+/* Player car specific lock to the bottom */
+#playerCar {
+    bottom: 20px;
+}
+
+.car::before,
+.car::after {
+    content: '';
+    position: absolute;
+    top: 15%;
+    bottom: 15%;
+    width: 15%;
+    background-image: linear-gradient(to bottom, #000 0%, #000 25%, transparent 25%, transparent 75%, #000 75%, #000 100%);
+    border-radius: 3px;
+    z-index: -1;
+}
+
+.car::before {
+    left: -8%;
+}
+
+.car::after {
+    right: -8%;
+}
+
+.car-body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 12px;
+    background: inherit;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: inset 0 2px 10px rgba(255, 255, 255, 0.3);
+}
+
+.windshield {
+    position: absolute;
+    top: 20%;
+    left: 8%;
+    right: 8%;
+    height: 20%;
+    background: rgba(10, 10, 15, 0.9);
+    border-radius: 40% 40% 5% 5%;
+    border-top: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+.roof {
+    position: absolute;
+    top: 40%;
+    left: 12%;
+    right: 12%;
+    height: 30%;
+    background: inherit;
+    border-radius: 4px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.rear-window {
+    position: absolute;
+    top: 70%;
+    left: 10%;
+    right: 10%;
+    height: 15%;
+    background: rgba(10, 10, 15, 0.85);
+    border-radius: 5% 5% 30% 30%;
+}
+
+.headlights,
+.taillights {
+    position: absolute;
+    left: 8%;
+    right: 8%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.headlights {
+    top: 2%;
+    height: 8%;
+}
+
+.headlights::before,
+.headlights::after {
+    content: '';
+    width: 25%;
+    height: 100%;
+    border-radius: 3px 3px 0 0;
+    background: #fff;
+    box-shadow: 0 -5px 15px rgba(255, 255, 200, 0.9);
+}
+
+.taillights {
+    bottom: 2%;
+    height: 5%;
+}
+
+.taillights::before,
+.taillights::after {
+    content: '';
+    width: 25%;
+    height: 100%;
+    border-radius: 0 0 3px 3px;
+    background: #ff0022;
+    box-shadow: 0 5px 10px rgba(255, 0, 0, 0.6);
+}
+
+.player-car {
+    background: linear-gradient(180deg, #00f0ff, #0088ff);
+}
+
+/* UI overlays -> Z-INDEX INCREASED SURPASSING CARS */
+.glass-panel {
+    background: rgba(20, 20, 30, 0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    border-radius: 12px;
+    z-index: 500;
+}
+
+#scoreBoard {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 24px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#gameOverUI {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+#gameOverUI.visible {
+    opacity: 1;
+    pointer-events: all;
+}
+
+#gameOverUI h2 {
+    font-size: 2.2rem;
+    color: #ff0055;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(255, 0, 85, 0.6);
+}
+
+#finalScoreValue {
+    color: #00f0ff;
+    font-weight: bold;
+}
+
+#restartBtn {
+    padding: 12px 35px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(45deg, #00f0ff, #0077ff);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 240, 255, 0.4);
+}
+
+#restartBtn:active {
+    transform: translateY(2px);
+}
+
+/* Bottom Controls */
+#controlsContainer {
+    height: 120px;
+    min-height: 100px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 15px;
+    background: #111;
+    border-top: 2px solid #222;
+    z-index: 30;
+    gap: 10px;
+}
+
+.control-btn {
+    height: 100%;
+    background: linear-gradient(to bottom, #3a3a44, #22222a);
+    border: 2px solid #444;
+    border-radius: 16px;
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 6px 0 #0d0d12, 0 10px 15px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transition: all 0.1s;
+}
+
+.side-btn {
+    width: 30%;
+}
+
+.race-btn {
+    width: 40%;
+    background: linear-gradient(to bottom, #ff3366, #cc0033);
+    border-color: #ff6688;
+}
+
+.control-btn:active,
+.control-btn.active {
+    transform: translateY(6px);
+    box-shadow: 0 0px 0 #0d0d12;
+}
+
+@media (max-width: 480px) {
+    #appContainer {
+        max-width: none;
+        max-height: none;
+        border-radius: 0;
+    }
+}
