@@ -340,6 +340,16 @@ body {
     box-shadow: 0 0px 0 #0d0d12;
 }
 
+#devAttribution {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #666;
+    padding: 8px 0;
+    background: #080808;
+    letter-spacing: 1px;
+    z-index: 40;
+}
+
 @media (max-width: 480px) {
     #appContainer {
         max-width: none;
